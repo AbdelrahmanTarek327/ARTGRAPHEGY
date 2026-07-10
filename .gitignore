@@ -7,3 +7,5 @@ server/dist
 .env.*
 !.env.example
 data/
+.netlify/
+gen-lang-client-*.json
