@@ -2,6 +2,7 @@ import { Router } from "express";
 import rateLimit from "express-rate-limit";
 import { inquirySchema } from "../schema/inquiry.js";
 import { appendInquiry } from "../services/excel-store.js";
+import { sendInquiryEmail } from "../services/email.js";
 
 export const inquiriesRouter = Router();
 
@@ -25,6 +26,14 @@ inquiriesRouter.post("/", submitLimiter, async (req, res) => {
 
   try {
     const record = await appendInquiry(parsed.data);
+
+    // Attempt to send notification email
+    try {
+      await sendInquiryEmail(record);
+    } catch (emailError) {
+      console.error("[inquiries] Failed to send notification email:", emailError);
+    }
+
     return res.status(201).json({
       message: "Inquiry received successfully.",
       id: record.id,

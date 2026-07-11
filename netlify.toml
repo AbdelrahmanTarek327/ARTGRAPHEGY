@@ -17,18 +17,6 @@
   status = 200
   force  = true
 
-[[redirects]]
-  from   = "/api/admin/inquiries/export"
-  to     = "/.netlify/functions/admin-export"
-  status = 200
-  force  = true
-
-[[redirects]]
-  from   = "/api/admin/inquiries/stats"
-  to     = "/.netlify/functions/admin-stats"
-  status = 200
-  force  = true
-
 # Health-check (lightweight, no function needed)
 [[redirects]]
   from   = "/api/health"
